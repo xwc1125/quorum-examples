@@ -42,12 +42,12 @@ while (( "$#" )); do
     esac
 done
 
-NETWORK_ID=$(cat istanbul-genesis.json | tr -d '\r' | grep chainId | awk -F " " '{print $2}' | awk -F "," '{print $1}')
+NETWORK_ID=$(cat genesis.json | grep chainId | awk -F " " '{print $2}' | awk -F "," '{print $1}')
 
 if [ $NETWORK_ID -eq 1 ]
 then
     echo "  Quorum should not be run with a chainId of 1 (Ethereum mainnet)"
-    echo "  please set the chainId in the istanbul-genesis.json to another value "
+    echo "  please set the chainId in the genensis.json to another value "
     echo "  1337 is the recommend ChainId for Geth private clients."
 fi
 
@@ -66,7 +66,7 @@ fi
 
 echo "[*] Starting Ethereum nodes with ChainID and NetworkId of $NETWORK_ID"
 set -v
-ARGS="--nodiscover --istanbul.blockperiod 5 --networkid $NETWORK_ID --syncmode full --mine --minerthreads 1 --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"
+ARGS="--nodiscover --networkid $NETWORK_ID --syncmode full --mine --minerthreads 1 --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum"
 PRIVATE_CONFIG=qdata/c1/tm.ipc nohup geth --datadir qdata/dd1 $ARGS --rpcport 22000 --port 21000 --unlock 0 --password passwords.txt 2>>qdata/logs/1.log &
 PRIVATE_CONFIG=qdata/c2/tm.ipc nohup geth --datadir qdata/dd2 $ARGS --rpcport 22001 --port 21001 --unlock 0 --password passwords.txt 2>>qdata/logs/2.log &
 PRIVATE_CONFIG=qdata/c3/tm.ipc nohup geth --datadir qdata/dd3 $ARGS --rpcport 22002 --port 21002 --unlock 0 --password passwords.txt 2>>qdata/logs/3.log &

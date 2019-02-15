@@ -19,7 +19,6 @@ mkdir -p qdata/dd2/{keystore,geth}
 cp permissioned-nodes.json qdata/dd2/static-nodes.json
 cp permissioned-nodes.json qdata/dd2/
 cp keys/key2 qdata/dd2/keystore
-cp keys/key3 qdata/dd2/keystore
 cp raft/nodekey2 qdata/dd2/geth/nodekey
 geth --datadir qdata/dd2 init istanbul-genesis.json
 
@@ -27,6 +26,7 @@ echo "[*] Configuring node 3"
 mkdir -p qdata/dd3/{keystore,geth}
 cp permissioned-nodes.json qdata/dd3/static-nodes.json
 cp permissioned-nodes.json qdata/dd3/
+cp keys/key3 qdata/dd3/keystore
 cp raft/nodekey3 qdata/dd3/geth/nodekey
 geth --datadir qdata/dd3 init istanbul-genesis.json
 
@@ -50,6 +50,7 @@ echo "[*] Configuring node 6"
 mkdir -p qdata/dd6/{keystore,geth}
 cp permissioned-nodes.json qdata/dd6/static-nodes.json
 cp permissioned-nodes.json qdata/dd6/
+cp keys/key6 qdata/dd6/keystore
 cp raft/nodekey6 qdata/dd6/geth/nodekey
 geth --datadir qdata/dd6 init istanbul-genesis.json
 
@@ -57,5 +58,9 @@ echo "[*] Configuring node 7"
 mkdir -p qdata/dd7/{keystore,geth}
 cp permissioned-nodes.json qdata/dd7/static-nodes.json
 cp permissioned-nodes.json qdata/dd7/
+cp keys/key7 qdata/dd7/keystore
 cp raft/nodekey7 qdata/dd7/geth/nodekey
 geth --datadir qdata/dd7 init istanbul-genesis.json
+
+#Initialise Tessera configuration
+./tessera-init.sh
